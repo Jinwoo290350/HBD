@@ -7,26 +7,30 @@ const fetchData = () => {
       dataArr.map(customData => {
         if (data[customData] !== "") {
           if (customData === "imagePath") {
-            document
-              .querySelector(`[data-node-name*="${customData}"]`)
-              .setAttribute("src", data[customData]);
+            const imageElement = document.querySelector(`[data-node-name*="${customData}"]`);
+            imageElement.setAttribute("src", data[customData]);
+
+            // Limit image size
+            imageElement.style.maxWidth = "500px"; // Adjust max-width as needed
+            imageElement.style.maxHeight = "500px"; // Adjust max-height as needed
+            imageElement.style.objectFit = "cover"; // To preserve aspect ratio and crop the image if necessary
           } else {
             document.querySelector(`[data-node-name*="${customData}"]`).innerText = data[customData];
           }
         }
 
         // Check if the iteration is over
-        // Run amimation if so
-        if ( dataArr.length === dataArr.indexOf(customData) + 1 ) {
+        // Run animation if so
+        if (dataArr.length === dataArr.indexOf(customData) + 1) {
           animationTimeline();
-        } 
+        }
       });
     });
 };
 
 // Animation Timeline
 const animationTimeline = () => {
-  // Spit chars that needs to be animated individually
+  // Split chars that need to be animated individually
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
   const hbd = document.getElementsByClassName("wish-hbd")[0];
 
